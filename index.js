@@ -1,35 +1,33 @@
 const express = require("express");
-
 const app = express();
+const cors = require("cors");
 
-app
-  .get("/", (req, res) => {
-    res.send("Get all items");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+const graphData2 = require("./data.json");
 
-app
-  .get("/:graphId", (req, res) => {
-    res.send("Get a graph by graphId");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+const PORT = 3001;
 
-app
-  .delete("/remove/:graphId", (req, res) => {
-    res.send("Graph successfully deleted");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+// import graphData from "./data.js";
 
-app
-  .post("/add/graph", (req, res) => {
-    res.send("Graph successfully created");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  console.log("/ endpoint", req);
+  res.json(graphData2);
+});
+
+app.get("/:graphId", (req, res) => {
+  console.log("GET /:graphid endpoint");
+});
+
+app.delete("/remove/:graphId", (req, res) => {
+  console.log("delete /remove/:graphid request");
+});
+
+app.post("/add/graph", (req, res) => {
+  console.log("POST /add/graph request");
+});
+
+app.listen(PORT, () => {
+  console.info(`App is running on port ${PORT}`);
+});
