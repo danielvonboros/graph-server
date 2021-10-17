@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const graphData = require("./data.json");
 
-const PORT = 3001;
+const port = process.env.port || 3001;
 
 app.use(express.json());
 
@@ -47,6 +47,6 @@ app.post("/add/graph", (req, res) => {
   console.log("POST /add/graph request");
 });
 
-app.listen(PORT, () => {
-  console.info(`App is running on port ${PORT}`);
+app.listen(port, "0.0.0.0", () => {
+  console.info(`App is running on port ${port}`);
 });
