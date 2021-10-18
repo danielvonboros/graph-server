@@ -59,8 +59,15 @@ app.delete("/remove/:graphId", (req, res) => {
 });
 
 app.post("/add/graph", (req, res) => {
-  console.log("POST /add/graph request");
-  res.send("POST /graphs/:graphId endpoint");
+  const { name, data } = req.body;
+
+  let newGraph = {
+    id: "grph_" + (graphData.length + 1),
+    name: name,
+    data: data,
+  };
+  graphData.push(newGraph);
+  return res.status(200).json(graphData);
 });
 
 app.listen(port, "0.0.0.0", () => {
