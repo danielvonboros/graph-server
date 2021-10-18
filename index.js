@@ -30,21 +30,31 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
+app.get("/graphs", (req, res) => {
   console.log("/ endpoint", req);
   res.json(graphData);
 });
 
-app.get("/:graphId", (req, res) => {
-  console.log("GET /:graphid endpoint");
+app.get("/graphs/:graphId", (req, res) => {
+  console.log("GET /:graphid endpoint", req.params);
+
+  const { graphId } = req.params;
+
+  for (let i = 0; i < graphData.length + 1; i++) {
+    if (graphData[i].id === graphId) {
+      return res.status(200).json(graphData[i]);
+    }
+  }
 });
 
 app.delete("/remove/:graphId", (req, res) => {
   console.log("delete /remove/:graphid request");
+  res.send("DELETE /remove/:graphId endpoint");
 });
 
 app.post("/add/graph", (req, res) => {
   console.log("POST /add/graph request");
+  res.send("POST /graphs/:graphId endpoint");
 });
 
 app.listen(port, "0.0.0.0", () => {
