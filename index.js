@@ -48,8 +48,14 @@ app.get("/graphs/:graphId", (req, res) => {
 });
 
 app.delete("/remove/:graphId", (req, res) => {
-  console.log("delete /remove/:graphid request");
-  res.send("DELETE /remove/:graphId endpoint");
+  const { graphId } = req.params;
+
+  for (i = 0; i < graphData.length + 1; i++) {
+    if (graphData[i].id === graphId) {
+      graphData.splice(i, 1);
+      return res.status(200).json(`Graph ${graphId} successfully deleted`);
+    }
+  }
 });
 
 app.post("/add/graph", (req, res) => {
